@@ -1,0 +1,81 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+//maven的升级版
+//apply plugin: 'maen-publish'
+//和 maven uploadArchives 冲突
+//apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.louisgeek'
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        flavorDimensions "default"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+//    implementation files('libs/xwalk_core_library-23.53.589.4.aar')
+    implementation files('libs/xwalk_core_library-23.53.589.4.aar')
+}
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        //项目的本地地址
+//        def deployPath = file("D:\\LouisGit\\ClassicXWalkView")
+        def deployPath = file(project.rootDir)
+        println("zzffqq:" + deployPath.absolutePath)
+        repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            version '1.0.0'
+            artifactId 'ClassicXWalkView'
+            groupId 'com.github.louisgeek'
+            packaging 'aar'
+            description 'update lib version'
+        }
+    }
+}
+
+// 源代码一起打包(不需要打包源代码的不要添加这几行)
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+artifacts {
+    archives androidSourcesJar
+    //archives androidJavadocsJar
+}
+//  ======= uploadArchives  end   =======
