@@ -61,7 +61,7 @@ uploadArchives {
         repository(url: "file://${deployPath.absolutePath}")
         pom.project {
             version '1.0.0'
-            artifactId 'ClassicXWalkView'
+            artifactId 'crosswalk'
             groupId 'com.github.louisgeek'
             packaging 'aar'
             description 'update lib version'
