@@ -5,7 +5,7 @@ buildscript {
         google()
         jcenter()
         repositories {
-            maven { url "https://raw.githubusercontent.com/AudienL/repos/master" }
+            maven { url "https://raw.githubusercontent.com/louisgeek/ClassicXWalkView/master" }
         }
     }
     dependencies {
@@ -21,7 +21,7 @@ allprojects {
         google()
         jcenter()
         repositories {
-            maven { url "https://raw.githubusercontent.com/AudienL/repos/master" }
+            maven { url "https://raw.githubusercontent.com/louisgeek/ClassicXWalkView/master" }
         }
     }
 }
